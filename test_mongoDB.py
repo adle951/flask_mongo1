@@ -1,3 +1,4 @@
+import pymongo
 from pymongo.mongo_client import MongoClient
 from bson.objectid import ObjectId
 
@@ -42,23 +43,37 @@ users_collection = test_database.users
 #     print(_["_id"])
 #     print(_["gender"])
 
-# 修改一筆資料
+
+# 查詢篩選及排序
+result = users_collection.find({
+    "$or" : [{"gender" : "女"}, {"gender" : "man"}]},
+    sort=[("level", pymongo.ASCENDING )]
+)
+
+for doc in result:
+    print(doc)
+
+
+# # 修改一筆資料
 # result = users_collection.update_one({
 #     "gender" : "男"
 # }, { "$set" : { "gender" : "man"
 #     }
 # })
 
-# 修改多筆資料
+# # 修改多筆資料
 # result = users_collection.update_many({
-#     "gender" : "男"
-# }, { "$set" : { "discription" : "add2"
+#     "gender" : "man"
+# }, { "$inc" : { "level" : 1
 #     }
 # })
+#
+# print(result.matched_count)
+# print(result.modified_count)
 
 # 刪除資料
-result = users_collection.delete_many({
-    "nane" : "leo"
-})
-
-print("實際刪除的數量:", result.deleted_count)
+# result = users_collection.delete_many({
+#     "nane" : "leo"
+# })
+#
+# print("實際刪除的數量:", result.deleted_count)
