@@ -34,8 +34,8 @@ users_collection = test_database.users
 # data2 = users_collection.find_one(ObjectId('6569ad8388e89abdc6cacac7'))
 # print(data2["nane"])
 
-data2 = users_collection.find_one({"name": "roey"})
-print(data2["gender"])
+# data2 = users_collection.find_one({"name": "roey"})
+# print(data2["gender"])
 
 # data3 = users_collection.find()
 # for _ in data3:
@@ -50,11 +50,15 @@ print(data2["gender"])
 # })
 
 # 修改多筆資料
-result = users_collection.update_many({
-    "gender" : "男"
-}, { "$set" : { "discription" : "add2"
-    }
+# result = users_collection.update_many({
+#     "gender" : "男"
+# }, { "$set" : { "discription" : "add2"
+#     }
+# })
+
+# 刪除資料
+result = users_collection.delete_many({
+    "nane" : "leo"
 })
 
-print("符合條件的數量:", result.matched_count)
-print("實際更新的數量:", result.modified_count)
+print("實際刪除的數量:", result.deleted_count)
